@@ -7,23 +7,17 @@ const swapBtn = document.getElementById('swap-btn');
 const exchangeRateSpan = document.getElementById('exchange-rate');
 //storing currencies
 
-let currencies = [  'KES', 'USD', 'EUR', 'GBP', 'JPY', // Kenya + majors
-    'AUD', 'CAD', 'CHF', 'CNY', // Other majors
-    'ZAR', 'NGN', 'GHS', 'EGP', // African currencies
-    'AED', 'SAR', // Middle East
-    'INR', 'PKR', // South Asia
-    'SGD', 'MYR', // Southeast Asia
-    'BRL', 'MXN', // Latin America
-    'RUB', 'TRY', // Europe/Asia
-    ];
+let currencies = [
+  'EUR', 'USD', 'AUD', 'BGN', 'BRL', 'CAD', 'CHF', 'CNY', 'CZK',
+  'DKK', 'GBP', 'HKD', 'HUF', 'IDR', 'ILS', 'INR', 'ISK', 'JPY',
+  'KRW', 'MXN', 'MYR'];
 let rates={};
-let baseCurrency= 'KES';//base currency
+let baseCurrency= 'ZAR';//base currency
 let targetCurrency = 'USD';//convert 
 
 
 //for the API
-const API_KEY= "5c7495fb2330754fb722bdc6";
-const API_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/`;//our exchange rate API
+const API_URL = `https://api.frankfurter.app/latest`;//our exchange rate API
 
 //when page loads...
 window.addEventListener(`DOMContentLoaded`, initApp)
@@ -36,8 +30,8 @@ function initApp(){
 fetchRates();// gets rates
 };
 function fetchRates(){
-    fetch(`${API_URL}${baseCurrency}`).then(response=>response.json()).then(data=>{ //gets excjange rate for diplayed target currency
-        rates=data.conversion_rates;// assings rates empty obj some values
+    fetch(`${API_URL}?from=${baseCurrency}`).then(response=>response.json()).then(data=>{ //gets excjange rate for diplayed target currency
+        rates=data.rates;// assings rates empty obj some values
         updateDisplay();//cb
     })
 }
