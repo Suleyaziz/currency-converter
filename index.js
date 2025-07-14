@@ -24,81 +24,81 @@ let targetCurrency = 'USD';//convert
 const API_KEY= "5c7495fb2330754fb722bdc6";
 const API_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/`;//our exchange rate API
 
-//when page loads...(event listener 1)
+//when page loads...
 window.addEventListener(`DOMContentLoaded`, initApp)
 
 function initApp(){
-    baseInput.addEventListener('input', convertCurrency);
-    swapBtn.addEventListener('click', swapCurrencies);
+    baseInput.addEventListener('input', convertCurrency);//listens for input and run conert Currency after
+    swapBtn.addEventListener('click', swapCurrencies);// listens for click then run swap Currencies function
     baseCurrencyBtn.addEventListener('click',()=> showCurrencyMenu(true));//displays other currencies 
-    targetCurrencyBtn.addEventListener('click', ()=> showCurrencyMenu(false));
-fetchRates();
+    targetCurrencyBtn.addEventListener('click', ()=> showCurrencyMenu(false));//display other currencies
+fetchRates();// gets rates
 };
 function fetchRates(){
-    fetch(`${API_URL}${baseCurrency}`).then(response=>response.json()).then(data=>{
-        rates=data.conversion_rates;
+    fetch(`${API_URL}${baseCurrency}`).then(response=>response.json()).then(data=>{ //gets excjange rate for diplayed target currency
+        rates=data.conversion_rates;// assings rates empty obj some values
         updateDisplay();//cb
     })
 }
 function convertCurrency(){
-    const amount = parseFloat(baseInput.value);//value inputted
-    const covertAmt=(amount * rates[targetCurrency]).toFixed(4);//multiplqies by rate of target currency
+    const amount = parseFloat(baseInput.value);//value inputted. parseFloat changes string to number
+    const covertAmt=(amount * rates[targetCurrency]).toFixed(4);//multiplies by rate of conversion target currency
     targetInput.value = covertAmt;// updates target value
 }
 //update display to new currencies
 function updateDisplay(){
-    baseCurrencyBtn.textContent= baseCurrency;
-    targetCurrencyBtn.textContent=targetCurrency;
-    const rate = rates[targetCurrency];
+    baseCurrencyBtn.textContent= baseCurrency;//update base cuurency
+    targetCurrencyBtn.textContent=targetCurrency;// updates taget currency
+    const rate = rates[targetCurrency];// specifically target currency rate
     exchangeRateSpan.textContent = `1${baseCurrency} = ${rate}${targetCurrency}`// shows what you get after coverting 
-     if(baseInput.value){  convertCurrency()};
+     if(baseInput.value){  convertCurrency()};// if base input has any value, convert it
 }
 //swap currencies
 function swapCurrencies(){
     [baseCurrency, targetCurrency] = [targetCurrency, baseCurrency];//swaps the two
-    fetchRates();
+    fetchRates();//fetches rates
 }
 //show currencyMenu
 function showCurrencyMenu(isBaseCurrency) {
     // Remove existing menu if any
     const oldMenu = document.querySelector('.currency-menu');
     if (oldMenu) oldMenu.remove();
-
+   //create a new menu for displaying other currencies
     const menu = document.createElement('div');
     menu.className = 'currency-menu';
     menu.style.position = 'absolute';
-    menu.style.background = 'white';
-    menu.style.border = '1px solid #ddd';
+    menu.style.background = '#4A6BFF';
+    menu.style.border = '1px solid #4A6BFF';
     menu.style.borderRadius = '4px';
     menu.style.padding = '8px';
-    menu.style.zIndex = '100';
-
+ // for each currency
     currencies.forEach(currency => {
-        if (currency === (isBaseCurrency ? baseCurrency : targetCurrency)) return; // fixed: skip current currency
-        
+        if (currency === (isBaseCurrency ? baseCurrency : targetCurrency)) return; //skip current currency
+        //create new div for each currency
         const option = document.createElement('div');
+        option.style.color = 'white';
         option.textContent = currency;
         option.style.padding = '4px 8px';
         option.style.cursor = 'pointer';
-        
+        //if you click a currency
         option.addEventListener('click', () => {
-            if (isBaseCurrency) {
-                baseCurrency = currency;
+            if (isBaseCurrency) {// checks which menu clicked
+                baseCurrency = currency;// for base currency, return selected currenct
             } else {
-                targetCurrency = currency;
+                targetCurrency = currency;//if target Currency is selected
             }
-            document.body.removeChild(menu);
-            fetchRates();
+            document.body.removeChild(menu);//removes the menu once done
+            fetchRates();// fetches rates
         });
         
-        menu.appendChild(option);
+        menu.appendChild(option);// updates DOM
     });
 
-    // Position menu below button
+    // Position menu below button. Intially, menu shows up in the middle of the page
     const button = isBaseCurrency ? baseCurrencyBtn : targetCurrencyBtn;
     const rect = button.getBoundingClientRect();
     menu.style.top = `${rect.bottom + window.scrollY}px`;
     menu.style.left = `${rect.left + window.scrollX}px`;
     
-    document.body.appendChild(menu);
+    document.body.appendChild(menu);//updates DOM
 }
