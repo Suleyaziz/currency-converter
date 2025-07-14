@@ -5,7 +5,8 @@ const baseInput = document.getElementById('base-input');
 const targetInput = document.getElementById('target-input');
 const swapBtn = document.getElementById('swap-btn');
 const exchangeRateSpan = document.getElementById('exchange-rate');
-//storing currencies 
+//storing currencies
+
 let currencies = [  'KES', 'USD', 'EUR', 'GBP', 'JPY', // Kenya + majors
     'AUD', 'CAD', 'CHF', 'CNY', // Other majors
     'ZAR', 'NGN', 'GHS', 'EGP', // African currencies
