@@ -83,7 +83,7 @@ h1 {
 }
 
 .swap-btn {
-    background: #1714ba;
+    background: #1550d2;
     color: white;
     border: none;
     border-radius: 50%;
@@ -98,7 +98,7 @@ h1 {
 }
 
 .swap-btn:hover {
-    background: #07f7ef;
+    background: #08eac081;
     transform: rotate(180deg) scale(1.05);
 }
 
@@ -140,4 +140,3 @@ h1 {
         min-width: 70px;
     }
 }
- 
