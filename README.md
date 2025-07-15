@@ -39,6 +39,8 @@ git clone https://github.com/Suleyaziz/currency-converter.git
 cd currency-converter
  ```
 # Open index.html in browser
+## Page:
+- https://suleyaziz.github.io/currency-converter/
 
 ## Authour:
 - name: Suleiman Aziz
