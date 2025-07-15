@@ -38,7 +38,6 @@ A responsive web application that converts between currencies using real-time ex
 git clone https://github.com/Suleyaziz/currency-converter.git
 cd currency-converter
  ```
-# Open index.html in browser
 ## Page:
 - https://suleyaziz.github.io/currency-converter/
 
